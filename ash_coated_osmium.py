@@ -1,3 +1,5 @@
+## Round 1+2 qualifier
+
 import math
 import json
 from datamodel import OrderDepth, TradingState, Order
