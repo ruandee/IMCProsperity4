@@ -1,0 +1,2 @@
+- the dee folder contains my raw directory from the competition, committed in a private repo alongside teammate
+- manual submissions were usually just calculated via wolframalpha + discord chat, so not much documentation for that, sorry.
