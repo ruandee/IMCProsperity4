@@ -1,0 +1,2 @@
+- the dee folder contains my raw directory from the competition, committed in a private repo alongside teammate. the two algorithms seperate are held as i was the sole author of those- we usually split the products between the two of us, but VEV_X was just the one i was happiest with
+- manual submissions were usually just calculated via wolframalpha + discord chat, so not much documentation for that, sorry.
