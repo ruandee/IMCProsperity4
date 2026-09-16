@@ -1,0 +1,24 @@
+can you also implement this (you need to implement detection logic: Since the TradingState is stateless (as mentioned in your AWS Lambda note), you should use the traderData string to track Mark 38's activity over time:
+
+Passive Detection: You cannot "see" them waiting in the book.
+
+Active Probing: You "fish" for them. Post a small order (quantity 1 or 2) at mid + 8.0.
+
+Validation: In the next iteration, check state.own_trades. If that order filled, you have confirmed Mark 38 is active and present at that timestamp.
+
+Scaling: Once confirmed, you increase your quantity for the next iteration to maximize the PnL capture before other bots (like Mark 14) fill their position limits.)
+The Exploit: Mark 38
+Mark 38 is mechanically crossing the spread to fill orders at extreme distances from the mid-price.
+
+* When Mark 38 buys: They consistently lift asks at `mid + 8.0` ticks.
+* When Mark 38 sells: They consistently hit bids at `mid - 8.0` ticks.
+Currently, Mark 14 is the only bot farming this edge. Mark 14 is pocketing a massive ~8-tick edge on both sides of the trade with zero adverse selection risk, simply by providing liquidity at these wide bands.
+The Trade for You
+To siphon this PnL away from Mark 14, you should run the exact same structural arbitrage:
+
+1. Calculate the True Mid-Price of `HYDROGEL_PACK`.
+2. Post Resting Limit Bids at `mid - 8` (or `mid - 7.5` if you want to front-run Mark 14 slightly to guarantee priority in the queue).
+3. Post Resting Limit Asks at `mid + 8` (or `mid + 7.5`).
+Mark 38 is a purely noise-driven taker algorithm with no signal. They will mechanically run into your resting orders, handing you approximately 8 ticks of pure profit per fill. Maintain a hard-cap on your inventory (e.g., using a position limit of 50 or scaling down to order sizes of 5) to prevent directional risk, and just let Mark 38 continuously bleed their capital into your account.
+
+
